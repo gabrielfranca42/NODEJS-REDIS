@@ -13,12 +13,20 @@ const getAllProducts = async() => {
     })
 }
 
+
 app.get("/",async (req, res) =>{
+    if(productsFromCache)
+    await client.set("key , value")
+    const value = await client.get('key')
     const products = await getAllProducts();
     res.send(products);
 });
 
-app.listen(3000, ()=> {
+const startup = async () => {
+    await client.connect();
+    app.listen(3000, ()=> {
     console.log("ta rodando esta budega ");
 
-})
+  })
+};
+startup();

@@ -15,10 +15,12 @@ const getAllProducts = async() => {
 
 
 app.get("/",async (req, res) =>{
-    if(productsFromCache)
-    await client.set("key , value")
-    const value = await client.get('key')
+    const productsFromCache = await client.get('getAllProducts')
+    if(productsFromCache){
+        return res.send(JSON.parse(productsFromCache));
+    }
     const products = await getAllProducts();
+    await client.set('getAllProducts', JSON.stringify(products))
     res.send(products);
 });
 
